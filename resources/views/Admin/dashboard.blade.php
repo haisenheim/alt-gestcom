@@ -51,7 +51,7 @@
             <div class="col-md-3 col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <p><span class="text-bold">Recouvrement mensuelles</span></p>
+                        <p><span class="text-bold">Recouvrements mensuelles</span></p>
                         <p>
                             <span style="font-size: 0.75rem">Total des sommes recoltees dans le mois</span>
                         </p>
@@ -64,7 +64,7 @@
             <div class="col-md-3 col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <p><span class="text-bold">Recouvrement annuelles</span></p>
+                        <p><span class="text-bold">Recouvrements annuelles</span></p>
                         <p>
                             <span style="font-size: 0.75rem">Total des sommes recoltees dans l'annee</span>
                         </p>
