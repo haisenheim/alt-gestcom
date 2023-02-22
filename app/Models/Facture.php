@@ -28,10 +28,32 @@ class Facture extends Model
         return $this->hasMany('App\Models\LigneFacture');
     }
 
+    public function getTvaAttribute(){
+        $mt = 80000;
+        return $mt*18/100;
+    }
+
+    public function getCaAttribute(){
+        $tva = $this->tva;
+        return $tva*5/100;
+    }
+
+
+
     public function getMontantAttribute(){
-        return $this->lignes->reduce(function($carry,$item){
+        $mt = $this->total;
+        if($this->with_tva){
+            return $mt + $this->tva + $this->ca;
+        }
+        return $mt;
+    }
+
+    public function getTotalAttribute(){
+        $mt = $this->lignes->reduce(function($carry,$item){
             return $carry + $item->montant;
         });
+
+        return $mt;
     }
 
     public function getVersementAttribute(){
@@ -59,6 +81,12 @@ class Facture extends Model
         }
 
         return $data;
+    }
+
+    public function getLogoAttribute(){
+        $host = request()->getSchemeAndHttpHost();
+        $path = $host ."/img/logo.png";
+        return $path;
     }
 
 }

@@ -9,9 +9,8 @@ use App\Models\Delai;
 use App\Models\Facture;
 use App\Models\LigneFacture;
 use App\Models\Paiement;
-use App\Models\Prestataire;
-use App\User;
 use Illuminate\Http\Request;
+use PDF;
 
 class FactureController extends ExtendedController
 {
@@ -91,6 +90,30 @@ class FactureController extends ExtendedController
 
         return response()->json($facture->id);
     }
+
+    public function imprimer($id){
+        $facture = Facture::find($id);
+        $pdf = PDF::loadView('Admin/Factures/pdf', [
+            'facture' => $facture
+        ]);
+
+        return $pdf->stream('sample.pdf');
+    }
+
+    public function enableTva($id){
+        $facture = Facture::find($id);
+        $facture->with_tva = 1;
+        $facture->save();
+        return back();
+    }
+
+    public function disableTva($id){
+        $facture = Facture::find($id);
+        $facture->with_tva = 0;
+        $facture->save();
+        return back();
+    }
+
 
     /**
      * Store a newly created resource in storage.

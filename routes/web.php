@@ -82,6 +82,9 @@ Route::prefix('admin')
         Route::get('compte/disable/{token}','UserController@disable');
         Route::resource('/factures', 'FactureController');
         Route::get('/factures/edit/{id}', 'FactureController@edit');
+        Route::get('/facture/tva/enable/{id}', 'FactureController@enableTva');
+        Route::get('/facture/tva/disable/{id}', 'FactureController@disableTva');
+        Route::get('/facture/print/{id}', 'FactureController@imprimer');
         Route::post('/factures/save', 'FactureController@save');
         Route::post('/facture/payer','FactureController@addPaiement');
     });

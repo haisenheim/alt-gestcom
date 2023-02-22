@@ -10,30 +10,34 @@
             <!-- Main content -->
             <div id="invoice" class="invoice p-3 mb-3">
               <!-- title row -->
-              <div class="row">
-                <div class="col-12">
-                  <h4>
-                    <span class="float-left">
-                       @if($facture->with_tva)
-                       <a href="/admin/facture/tva/disable/{{ $facture->id }}" class="btn btn-xs btn-danger">Enlever TVA</a>
-                       @else
-                       <a href="/admin/facture/tva/enable/{{ $facture->id }}" class="btn btn-xs btn-info">Appliquer TVA</a>
-                       @endif
-                    </span>
-                    <small class="float-right">Date: {{ date_format($facture->created_at,'d/m/Y') }}</small>
-                  </h4>
-                </div>
-                <!-- /.col -->
+              <div style="display: absolute; height:140px">
+                    <div style="display:flex; justify-content: space-between;">
+                        <div style="height:90px; width:90px">
+                            <img style="height:90px; width:90px" src="{{ asset('img/logo.png') }}" alt="">
+                        </div>
+                        <div style="">
+                            <div style="width: 1000px; margin: 5px auto; padding-left:20px;">
+                                <h2 style="margin-left : 200px">ETS CHRISTEVIE</h2>
+                                <h4 style="">FROID GENERAL & VENTE EQUIPEMENTS - ACCESSOIRES</h4>
+                                <h6 style="">Adresse : Mahouata - Avenue MOE PRATT</h6>
+                                <h6 style="">TELEPHONE: +242 06 631 32 11 - Email : nonochristevie@gmail.com </h6>
+                            </div>
+                            <div>
+
+                            </div>
+                        </div>
+                    </div>
               </div>
               <hr/>
+              <h5>FACTURE &numero; {{ $facture->reference }}</h5>
               <!-- info row -->
               <div class="row invoice-info">
+
                 @if ($facture->client)
-                <div class="col-sm-4 invoice-col">
-                    CLIENT:
+                <div class="col-sm-6 invoice-col">
+                    CLIENT: <strong>{{ $facture->client->name }} </strong>
                     <address>
-                      <strong>{{ $facture->client->name }} </strong><br>
-                      {{ $facture->client->address }}<br>
+                      Adresse : {{ $facture->client->address }}<br>
 
                       Téléphone: {{ $facture->client->telephone }}<br>
                       Email: {{ $facture->client->email }}<br/>
@@ -41,25 +45,16 @@
                     </address>
                 </div>
                 @else
-                <div class="col-sm-4 invoice-col">
-                    CLIENT:
-                    <address>
-                      <strong>{{ $facture->client_name }} </strong><br>
-                    </address>
+                <div class="col-sm-6 invoice-col">
+                    CLIENT:<strong>{{ $facture->client_name }} </strong>
                 </div>
                 @endif
                 <!-- /.col -->
 
-                <!-- /.col -->
-                <div class="col-sm-4 invoice-col">
-                  <b>TOTAL : {{ number_format($facture->montant, 0,',','.') }} </b><br>
-                  <br>
 
-                </div>
                 <!-- /.col -->
-                <div class="col-sm-4 invoice-col">
-                    <b><span style="font-size: 12px; font-weight: 500">DELAI</span> : <span style="font-size: 12px; font-weight: 700">{{ $facture->delai?$facture->delai->name.' Jours':'Paiement immediat' }}</span> </b><br>
-                    <br>
+                <div class="col-sm-6 invoice-col">
+                    <span class="float-right">DATE DE CREATION : {{ date_format($facture->created_at,'d/m/Y') }}</span>
 
                   </div>
                   <!-- /.col -->
@@ -91,32 +86,22 @@
                                     </tr>
 
                             @endforeach
-                            @if($facture->with_tva)
-                                <tr>
-                                    <th style="text-align: right;" colspan="3">MONTANT HT</th>
-                                    <th style="text-align: left;">{{ number_format($facture->total,0,',','.') }}</th>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: right;" colspan="3">TVA</th>
-                                    <th style="text-align: left;">{{ number_format($facture->tva,0,',','.') }}</th>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: right" colspan="3">CA</th>
-                                    <th style="text-align: left;">{{ number_format($facture->ca,0,',','.') }}</th>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: right;" colspan="3">NET A PAYER</th>
-                                    <th style="text-align: left;">{{ number_format($facture->montant,0,',','.') }}</th>
-                                </tr>
-                            @else
-                            <tr>
-                                <th style="text-align: right;" colspan="3">TOTAL HT</th>
-                                <th style="text-align: left;">{{ number_format($facture->montant,0,',','.') }}</th>
-                            </tr>
-                            @endif
                         </tbody>
                     </table>
 
+                </div>
+
+                <div class="mt-3">
+                    <p>DELAI DE PAIEMENT : {{ $facture->delai?$facture->delai->name:'Paiement immediat' }}</p>
+                </div>
+
+                <hr>
+
+                <div class="footer">
+                    <div style="border: 2px #000; border-top-width: 2px;"></div>
+                    <div>
+                        <p>PIED DE PAGE</p>
+                    </div>
                 </div>
 
               </div>
@@ -187,7 +172,7 @@
       <div class="actions" id="actions-section">
             <ul id="float-menu" style="position:fixed; top:150px; right:50px;" class="list-unstyled">
                 <li class="">
-                    <a  title="Imprimer" id="btn-print_" class="ripple" href="/admin/facture/print/{{ $facture->id }}"><i class="fa fa-print fa-lg text-info"></i></a>
+                    <a  title="Imprimer" id="btn-print" class="ripple" href="#"><i class="fa fa-print fa-lg text-info"></i></a>
                 </li>
                 @if($facture->reste>0)
                 <li class="">
@@ -205,13 +190,42 @@
         div.content{
             background-color: #eeeeee;
         }
+
+        footer {
+  font-size: 9px;
+  color: #f00;
+  text-align: center;
+}
+
+@page {
+  size: A4;
+  margin: 11mm 17mm 17mm 17mm;
+}
+
+@media print {
+  footer {
+    position: fixed;
+    bottom: 0;
+  }
+
+  .content-block, p {
+    page-break-inside: avoid;
+  }
+
+  html, body {
+    width: 210mm;
+    height: 297mm;
+  }
+}
+
     </style>
+
     <script src="{{ asset('js/jQuery.print.js') }}"></script>
     <script>
         $('#btn-print').click(function(){
             $("#invoice").print({
                 addGlobalStyles : true,
-                stylesheet : null,
+                stylesheet : 'https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css',
                 rejectWindow : true,
                 noPrintSelector : ".no-print",
                 iframe : true,
