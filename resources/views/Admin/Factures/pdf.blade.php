@@ -85,7 +85,7 @@
                 <div style="float: left; width: 50%" class="">
                     <span style="font-size: 13px;"> <span>CLIENT : </span><strong>{{ $facture->client->name }}</strong></span>
                     <address>
-                      <span style="font-size: 11px;">Adresse : {{ $facture->client->address }}</span><br>
+                      <span style="font-size: 11px;">Adresse : {{ $facture->client->adresse }}</span><br>
 
                      <span style="font-size: 12px;"> Téléphone: {{ $facture->client->telephone }}</span><br>
                       <span style="font-size: 11px;">Email: {{ $facture->client->email }}</span>

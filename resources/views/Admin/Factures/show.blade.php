@@ -33,7 +33,7 @@
                     CLIENT:
                     <address>
                       <strong>{{ $facture->client->name }} </strong><br>
-                      {{ $facture->client->address }}<br>
+                      {{ $facture->client->adresse }}<br>
 
                       Téléphone: {{ $facture->client->telephone }}<br>
                       Email: {{ $facture->client->email }}<br/>
