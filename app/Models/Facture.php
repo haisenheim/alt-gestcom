@@ -71,13 +71,13 @@ class Facture extends Model
     }
 
     public function getStatusAttribute(){
-        $data = ['color'=>'danger','name'=>'impayée'];
+        $data = ['color'=>'danger','name'=>'impayée','code'=>1];
         if($this->versement > 0){
-            $data = ['color'=>'warning','name'=>'non soldée'];
+            $data = ['color'=>'warning','name'=>'non soldée','code'=>2];
         }
 
         if($this->reste == 0){
-            $data = ['color'=>'success','name'=>'soldée'];
+            $data = ['color'=>'success','name'=>'soldée','code'=>3];
         }
 
         return $data;

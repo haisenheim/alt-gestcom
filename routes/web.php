@@ -85,6 +85,7 @@ Route::prefix('admin')
         Route::get('/facture/tva/enable/{id}', 'FactureController@enableTva');
         Route::get('/facture/tva/disable/{id}', 'FactureController@disableTva');
         Route::get('/facture/print/{id}', 'FactureController@imprimer');
+        Route::get('/print/histo_factures/block', 'FactureController@printBlock');
         Route::post('/factures/save', 'FactureController@save');
         Route::post('/facture/payer','FactureController@addPaiement');
     });

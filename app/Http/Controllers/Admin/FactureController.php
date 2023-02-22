@@ -22,10 +22,22 @@ class FactureController extends ExtendedController
     public function index()
     {
         //
+       /* $du = request()->du;
+        $au = request()->au;
+        if($du && $au){
+            $factures = Facture::whereBetween('created_at',[$du,$au]);
+            if(request()->client_id){
+                $factures = $factures->where('client_id',request()->client_id);
+            }
+        }
+        else{
+            $factures = Facture::orderBy('created_at','DESC')->paginate(100);
+        } */
         $factures = Facture::orderBy('created_at','DESC')->paginate(100);
         $clients = Client::all();
         $articles = Article::all();
         $delais = Delai::all();
+
         return view('/Admin/Factures/index')->with(compact('factures','clients','articles','delais'));
     }
 
@@ -98,6 +110,31 @@ class FactureController extends ExtendedController
         ]);
 
         return $pdf->stream('sample.pdf');
+    }
+
+    public function printBlock(){
+        $du = request()->du;
+        $au = request()->au;
+
+       // dd(request()->all());
+        if($du && $au){
+            $factures = Facture::whereBetween('created_at',[$du,$au])->get();
+            if(request()->client_id){
+                $factures = $factures->where('client_id',request()->client_id);
+            }
+            if(request()->type_id){
+                $factures = $factures->filter(function($item){
+                    return $item->status['code'] == request()->type_id;
+                });
+            }
+            $client = Client::find(request()->client_id);
+           // dd($factures);
+            $pdf = PDF::loadView('Admin/Factures/pdf_block',compact('factures','client'));
+
+            return $pdf->stream('factures.pdf');
+        }
+        return back();
+
     }
 
     public function enableTva($id){
