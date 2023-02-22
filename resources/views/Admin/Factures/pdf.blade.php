@@ -104,7 +104,7 @@
                 <div style="float: left; font-size: 11px; font-weight: 600; width: 40%; text-align: right" class="col-sm-6 invoice-col">
                     <span style="float:left;">DATE DE CREATION : {{ date_format($facture->created_at,'d/m/Y') }}</span>
                     <div class="mt-3">
-                        <p style="float:left; font-size: 11px;font-weight: 600;">DELAI DE PAIEMENT : {{ $facture->delai?$facture->delai->name:'Paiement immediat' }}</p>
+                        <p style="float:left; font-size: 11px;font-weight: 600;">DELAI DE PAIEMENT : {{ $facture->delai?$facture->delai->name .' jours':'Paiement immediat' }}</p>
                     </div>
                   </div>
                   <!-- /.col -->
