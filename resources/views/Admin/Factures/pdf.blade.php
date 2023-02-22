@@ -140,7 +140,7 @@
                                     <th style="text-align: left;">{{ number_format($facture->total,0,',','.') }}</th>
                                 </tr>
                                 <tr>
-                                    <th style="text-align: right;" colspan="3">TVA</th>
+                                    <th style="text-align: right;" colspan="3">TVA (18%)</th>
                                     <th style="text-align: left;">{{ number_format($facture->tva,0,',','.') }}</th>
                                 </tr>
                                 <tr>
