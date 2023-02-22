@@ -104,13 +104,13 @@
     <script>
         var i=0;
         $('#article_id').change(function(){
-            var pv = $('#article_id option:selected').data('pu');
+
             var text = $('#article_id option:selected').text();
             $('#pu').val(pv);
         });
 
         $('#btn-add').click(function(){
-            var pv = $('#article_id option:selected').data('pu');
+            var pv = $('#pu').val();
             var text = $('#article_id option:selected').text();
             var id = $('#article_id').val();
             var qty = $('#qty').val();

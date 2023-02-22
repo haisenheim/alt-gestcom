@@ -85,7 +85,7 @@
                             @foreach($facture->lignes as $ligne)
                                     <tr>
                                        <td>{{ $ligne->article?$ligne->article->name:'-' }}</td>
-                                       <td>{{ number_format($ligne->montant,0,',','.') }}</td>
+                                       <td>{{ number_format($ligne->pu,0,',','.') }}</td>
                                        <td>{{ number_format($ligne->quantite,0,',','.') }}</td>
                                        <td>{{ number_format($ligne->montant,0,',','.') }}</td>
                                     </tr>
