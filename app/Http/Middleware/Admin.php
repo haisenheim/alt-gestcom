@@ -47,8 +47,14 @@ class Admin
         if(in_array('parametres',$path)){
 		    Session::put('active', 7);
 	    }
+        if(in_array('fournisseurs',$path)){
+		    Session::put('active', 8);
+	    }
+        if(in_array('stocks',$path)){
+		    Session::put('active', 9);
+	    }
 
-    
+
 
         return $next($request);
     }

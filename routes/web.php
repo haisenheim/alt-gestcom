@@ -66,6 +66,8 @@ Route::prefix('admin')
     ->group(function(){
         Route::get('/dashboard','DashboardController');
         Route::resource('/clients', 'ClientController');
+        Route::resource('/fournisseurs', 'FournisseurController');
+        Route::resource('/stocks', 'StockController');
 
         Route::resource('/paiements', 'PaiementController');
         Route::resource('/depenses', 'DepenseController');
@@ -75,7 +77,10 @@ Route::prefix('admin')
         Route::resource('/parametres/tdepenses', 'TDepenseController');
 
         Route::resource('/parametres/articles', 'ArticleController');
-        Route::resource('/cartes', 'CarteController');
+        Route::get('/proformas/factures', 'FactureController@getProformas');
+        Route::get('/proforma/factures/{id}', 'FactureController@showProforma');
+        Route::get('/valider/factures/{id}', 'FactureController@valider');
+        Route::post('/proforma/factures', 'FactureController@saveProforma');
 
         Route::resource('/users', 'UserController');
         Route::get('compte/enable/{token}','UserController@enable');

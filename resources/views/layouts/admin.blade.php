@@ -78,18 +78,56 @@
             </a>
           </li>
           <li class="nav-item {{ $active==4?'active':'' }}">
-            <a href="/admin/factures" class="nav-link {{ $active==4?'active':'' }}">
-              <i class="nav-icon fas fa-file-pdf"></i>
-              <p>
-                FACTURES
-              </p>
-            </a>
+            <a href="#" class="nav-link {{ $active==4?'active':'' }}">
+                <i class="nav-icon fas fa-file-pdf"></i>
+                <p>
+                  FACTURES
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/admin/factures" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>FACTURES CLIENTS</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/proformas/factures" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>FACTURES PROFORMA</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/frn/factures" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>FACTURES FOURNISSEURS</p>
+                    </a>
+                </li>
+
+              </ul>
           </li>
           <li class="nav-item {{ $active==5?'active':'' }}">
             <a href="/admin/clients" class="nav-link {{ $active==5?'active':'' }}">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 CLIENTS
+              </p>
+            </a>
+          </li>
+          <li class="nav-item {{ $active==8?'active':'' }}">
+            <a href="/admin/fournisseurs" class="nav-link {{ $active==8?'active':'' }}">
+              <i class="nav-icon fas fa-truck"></i>
+              <p>
+                FOURNISSEURS
+              </p>
+            </a>
+          </li>
+          <li class="nav-item {{ $active==9?'active':'' }}">
+            <a href="/admin/stocks" class="nav-link {{ $active==9?'active':'' }}">
+              <i class="nav-icon fas fa-filter"></i>
+              <p>
+                STOCK
               </p>
             </a>
           </li>

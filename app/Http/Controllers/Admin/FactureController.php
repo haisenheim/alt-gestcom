@@ -33,12 +33,23 @@ class FactureController extends ExtendedController
         else{
             $factures = Facture::orderBy('created_at','DESC')->paginate(100);
         } */
-        $factures = Facture::orderBy('created_at','DESC')->paginate(100);
-        $clients = Client::all();
+        $factures = Facture::orderBy('created_at','DESC')->where('fournisseur',0)->where('statut',1)->paginate(50);
+        $clients = Client::where('fournisseur',0)->get();
         $articles = Article::all();
         $delais = Delai::all();
 
         return view('/Admin/Factures/index')->with(compact('factures','clients','articles','delais'));
+    }
+
+    public function getProformas()
+    {
+
+        $factures = Facture::orderBy('created_at','DESC')->where('fournisseur',0)->where('statut',0)->paginate(50);
+        $clients = Client::where('fournisseur',0)->get();
+        $articles = Article::all();
+        $delais = Delai::all();
+
+        return view('/Admin/Factures/proformas')->with(compact('factures','clients','articles','delais'));
     }
 
     public function addPaiement(Request $request){
@@ -195,6 +206,32 @@ class FactureController extends ExtendedController
         return response()->json($facture->id);
     }
 
+    public function saveProforma(Request $request)
+    {
+        //
+        $lignes = $request->lignes;
+        $facture = Facture::create([
+            'client_id'=>$request->client_id?$request->client_id:0,
+            'reference'=>'CHTV'.date('sihd/my'),
+            'moi_id'=>date('m'),
+            'annee'=>date('Y'),
+            'delai_id'=>$request->delai_id,
+            'statut'=>0,
+            'user_id'=>auth()->user()->id,
+            'client_name'=>$request->name,
+        ]);
+        for($i=0;$i<count($lignes);$i++){
+            $ligne = LigneFacture::create([
+                'facture_id'=>$facture->id,
+                'article_id'=>$lignes[$i]['id'],
+                'pu'=>$lignes[$i]['pu'],
+                'quantite'=>$lignes[$i]['qty'],
+            ]);
+        }
+
+        return response()->json($facture->id);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -205,6 +242,20 @@ class FactureController extends ExtendedController
 	{
 		$facture = Facture::find($id);
 		return view('/Admin/Factures/show')->with(compact('facture'));
+	}
+
+    public function showProforma($id)
+	{
+		$facture = Facture::find($id);
+		return view('/Admin/Factures/proforma')->with(compact('facture'));
+	}
+
+    public function valider($id)
+	{
+		$facture = Facture::find($id);
+        $facture->statut = 1;
+        $facture->save();
+		return redirect('admin/factures/'.$facture->id);
 	}
 
 

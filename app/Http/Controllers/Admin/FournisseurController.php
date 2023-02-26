@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class FournisseurController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class ClientController extends Controller
     public function index()
     {
         //
-        $clients = Client::where('fournisseur',0)->get();
-        return view('/Admin/Clients/index')->with(compact('clients'));
+        $clients = Client::where('fournisseur',1)->get();
+        return view('/Admin/Fournisseurs/index')->with(compact('clients'));
     }
 
 
@@ -44,7 +44,9 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         //
-        $client = Client::create($request->all());
+        $data = $request->all();
+        $data['fournisseur'] = 1;
+        $client = Client::create($data);
 
         return back();
     }
@@ -58,7 +60,7 @@ class ClientController extends Controller
 	public function show($token)
 	{
         $client = Client::find($token);
-		return view('/Admin/Clients/show')->with(compact('client'));
+		return view('/Admin/Fournisseurs/show')->with(compact('client'));
 	}
 
 
