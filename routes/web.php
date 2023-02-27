@@ -78,6 +78,7 @@ Route::prefix('admin')
 
         Route::resource('/parametres/articles', 'ArticleController');
         Route::get('/proformas/factures', 'FactureController@getProformas');
+        Route::get('/frn/factures', 'FactureController@getFacturesFrn');
         Route::get('/proforma/factures/{id}', 'FactureController@showProforma');
         Route::get('/valider/factures/{id}', 'FactureController@valider');
         Route::post('/proforma/factures', 'FactureController@saveProforma');
@@ -90,6 +91,7 @@ Route::prefix('admin')
         Route::get('/facture/tva/enable/{id}', 'FactureController@enableTva');
         Route::get('/facture/tva/disable/{id}', 'FactureController@disableTva');
         Route::get('/facture/print/{id}', 'FactureController@imprimer');
+        
         Route::get('/print/histo_factures/block', 'FactureController@printBlock');
         Route::post('/factures/save', 'FactureController@save');
         Route::post('/facture/payer','FactureController@addPaiement');

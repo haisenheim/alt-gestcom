@@ -22,7 +22,7 @@
                                     <th>&numero;</th>
                                     <th>CLIENT</th>
                                     <th>MONTANT</th>
-                                   
+
                                 </tr>
                         </thead>
                         <tbody>
@@ -31,7 +31,6 @@
                                     <td>{{ date_format($fournisseur->created_at,'d/m/Y H:i') }}</td>
                                     <td><a href="/admin/proforma/factures/{{ $fournisseur->id }}"> {{ $fournisseur->reference }}</a></td>
                                     <td>{{ $fournisseur->client?$fournisseur->client->name:$fournisseur->client_name }}</td>
-
                                     <td>{{ number_format($fournisseur->montant,0,',','.') }}</td>
 
                                 </tr>

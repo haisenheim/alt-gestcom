@@ -21,24 +21,24 @@ class FactureController extends ExtendedController
      */
     public function index()
     {
-        //
-       /* $du = request()->du;
-        $au = request()->au;
-        if($du && $au){
-            $factures = Facture::whereBetween('created_at',[$du,$au]);
-            if(request()->client_id){
-                $factures = $factures->where('client_id',request()->client_id);
-            }
-        }
-        else{
-            $factures = Facture::orderBy('created_at','DESC')->paginate(100);
-        } */
+
         $factures = Facture::orderBy('created_at','DESC')->where('fournisseur',0)->where('statut',1)->paginate(50);
         $clients = Client::where('fournisseur',0)->get();
         $articles = Article::all();
         $delais = Delai::all();
 
         return view('/Admin/Factures/index')->with(compact('factures','clients','articles','delais'));
+    }
+
+    public function getFacturesFrn()
+    {
+
+        $factures = Facture::orderBy('created_at','DESC')->where('fournisseur',1)->where('statut',1)->paginate(50);
+        $clients = Client::where('fournisseur',1)->get();
+        $articles = Article::all();
+        $delais = Delai::all();
+
+        return view('/Admin/Factures/fournisseurs')->with(compact('factures','clients','articles','delais'));
     }
 
     public function getProformas()
@@ -116,9 +116,16 @@ class FactureController extends ExtendedController
 
     public function imprimer($id){
         $facture = Facture::find($id);
-        $pdf = PDF::loadView('Admin/Factures/pdf', [
-            'facture' => $facture
-        ]);
+        if($facture->statut){
+            $pdf = PDF::loadView('Admin/Factures/pdf', [
+                'facture' => $facture
+            ]);
+        }else{
+            $pdf = PDF::loadView('Admin/Factures/proforma_pdf', [
+                'facture' => $facture
+            ]);
+        }
+
 
         return $pdf->stream('sample.pdf');
     }

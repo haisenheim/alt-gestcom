@@ -132,7 +132,7 @@
       <div class="actions" id="actions-section">
             <ul id="float-menu" style="position:fixed; top:150px; right:50px;" class="list-unstyled">
                 <li class="">
-                    <a  title="Imprimer" id="btn-print_" class="ripple" href="/admin/facture/print/{{ $facture->id }}"><i class="fa fa-print fa-lg text-info"></i></a>
+                    <a  title="Imprimer"  class="ripple" href="/admin/facture/print/{{ $facture->id }}"><i class="fa fa-print fa-lg text-info"></i></a>
                 </li>
                 @if($facture->reste>0)
                 <li class="">
