@@ -97,7 +97,9 @@
                     </tr>
             </thead>
             <tbody>
+                <?php $v=0; $r=0; $m=0; ?>
                 @foreach ($factures as $fournisseur)
+                    <?php $v+=$fournisseur->versement; $r+=$fournisseur->reste; $m+=$fournisseur->montant; ?>
                     <tr>
                         <td>{{ date_format($fournisseur->created_at,'d/m/Y H:i') }}</td>
                         <td>{{ $fournisseur->reference }}</td>
@@ -108,6 +110,13 @@
                         <td>{{ $fournisseur->status['name'] }}</td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td colspan="3" style="text-align: right; padding-right:10px">TOTAL</td>
+                    <td>{{ number_format($m,0,',','.') }}</td>
+                    <td>{{ number_format($v,0,',','.') }}</td>
+                    <td>{{ number_format($r,0,',','.') }}</td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
     </main>
