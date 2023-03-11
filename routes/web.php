@@ -11,6 +11,7 @@ use BeyondCode\Mailbox\InboundEmail;
 use BeyondCode\Mailbox\Facades\Mailbox;
 use App\Models\MailboxInboundEmail;
 use App\Mail\TestEmail;
+use App\Models\Page;
 use Illuminate\Support\Facades\Mail;
 
 /*
@@ -51,11 +52,10 @@ Route::get('/ip', function () {
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('kpi/fournisseur/ventes','KpiController@getFournisseurVentes');
-Route::get('kpi/fournisseur/cartes','KpiController@getFournisseurCartes');
-Route::get('kpi/fournisseur/intervalles','KpiController@getFournisseurIntervalles');
-Route::get('json/type/prestataires/{id}','DataController@getPrestatairesByType');
-Route::get('json/entreprise/assures/{id}','DataController@getByEntreprise');
+Route::get('/test',function(){
+    $page = Page::find(1);
+    dd($page->categorie);
+});
 
 
 
@@ -91,10 +91,11 @@ Route::prefix('admin')
         Route::get('/facture/tva/enable/{id}', 'FactureController@enableTva');
         Route::get('/facture/tva/disable/{id}', 'FactureController@disableTva');
         Route::get('/facture/print/{id}', 'FactureController@imprimer');
-        
+
         Route::get('/print/histo_factures/block', 'FactureController@printBlock');
         Route::post('/factures/save', 'FactureController@save');
         Route::post('/facture/payer','FactureController@addPaiement');
+        Route::post('/factures/commission', 'FactureController@addCommission');
     });
 
 

@@ -182,12 +182,65 @@
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-      </div>
+    </div>
+
+    <div class="modal fade" id="addComModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">NOUVELLE COMMISSION</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form  method="POST" action="/admin/factures/commission">
+            <div class="modal-body">
+                @csrf
+                <input type="hidden" name="facture_id" value="{{ $facture->id }}">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="form-group">
+                           <select name="commerciale_id" id="" required class="form-control">
+                                <option value="">Commercial ...</option>
+                                @foreach ($coms as $com)
+                                    <option value="{{ $com->id }}">{{ $com->name }}</option>
+                                @endforeach
+                           </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 col-sm-12">
+                      <div class="form-group">
+                          <input type="number" name="montant" placeholder="Montant" class="form-control">
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <input type="text" name="memo" placeholder="Memo" class="form-control">
+                        </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="submit" class="btn btn-secondary">Enregistrer</button>
+            </div>
+            </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 
       <div class="actions" id="actions-section">
             <ul id="float-menu" style="position:fixed; top:150px; right:50px;" class="list-unstyled">
                 <li class="">
                     <a  title="Imprimer" id="btn-print_" class="ripple" href="/admin/facture/print/{{ $facture->id }}"><i class="fa fa-print fa-lg text-info"></i></a>
+                </li>
+                <li class="">
+                    <a  title="Ajouter commisssion" data-toggle="modal" data-target='#addComModal' class="ripple" href="#"><i class="fa fa-users fa-lg text-danger"></i></a>
                 </li>
                 @if($facture->reste>0)
                 <li class="">

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\ExtendedController;
 use App\Models\Article;
 use App\Models\Client;
+use App\Models\Commerciale;
+use App\Models\Commission;
 use App\Models\Delai;
 use App\Models\Facture;
 use App\Models\LigneFacture;
@@ -87,6 +89,19 @@ class FactureController extends ExtendedController
         $delais = Delai::all();
         return view('/Admin/Factures/edit')->with(compact('facture','clients','articles','delais'));
 	}
+
+    public function addCommission(Request $request){
+        Commission::create([
+            'commerciale_id'=>$request->commerciale_id,
+            'facture_id'=>$request->facture_id,
+            'name'=>$request->memo,
+            'montant'=>$request->montant,
+            'moi_id'=>date('m'),
+            'annee'=>date('Y'),
+        ]);
+
+        return back();
+    }
 
     public function save(Request $request)
     {
@@ -248,7 +263,8 @@ class FactureController extends ExtendedController
 	public function show($id)
 	{
 		$facture = Facture::find($id);
-		return view('/Admin/Factures/show')->with(compact('facture'));
+        $coms = Commerciale::where('client_id',$facture->client_id)->get();
+		return view('/Admin/Factures/show')->with(compact('facture','coms'));
 	}
 
     public function showProforma($id)
