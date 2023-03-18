@@ -18,13 +18,6 @@ class DepenseController extends ExtendedController
     public function index()
     {
         //
-        $depenses = Depense::all();
-        foreach($depenses as $depense){
-            $depense->done_at = $depense->created_at;
-            $m = Carbon::parse($depense->created_at);
-            $depense->save();
-        }
-        dd($depenses);
         $depenses = Depense::orderBy('created_at','DESC')->paginate(50);
         $types = Tdepense::all();
         return view('/Admin/Depenses/index')->with(compact('types','depenses'));
@@ -50,7 +43,15 @@ class DepenseController extends ExtendedController
     {
         //
         //dd($request->all());
-
+        $depense = Depense::create([
+            'done_at'=>$request->done_at,
+            'montant'=>$request->montant,
+            'moi_id'=>date('m'),
+            'annee'=>date('Y'),
+            'user_id'=>auth()->user()->id,
+            'deptype_id'=>$request->type_id,
+            'name'=>time(),
+        ]);
         $request->session()->flash('success','Ok');
         return back();
     }

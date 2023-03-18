@@ -63,7 +63,7 @@
             </div>
             <div class="col-md-12 col-sm-12">
                 <div class="form-group">
-                    <select name="client_id" id="client_id" required class="form-control">
+                    <select name="type_id" id="client_id" required class="form-control">
                         <option value="">TYPE ...</option>
                         @foreach ($types as $type)
                             <option value="{{ $type->id }}">{{ $type->name }}</option>
