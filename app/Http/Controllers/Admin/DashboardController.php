@@ -14,7 +14,7 @@ class DashboardController extends Controller
 
         $data = [];
 
-        $paiements = Paiement::where('annee',date('Y'))->get();
+        $paiements = Paiement::where('annee',date('Y'))->where('fournisseur',0)->get();
         $paiements = $paiements->groupBy(function($item){
             return $item->mois->name;
         });
@@ -24,11 +24,16 @@ class DashboardController extends Controller
             return $item->mois->name;
         });
 
+        $fpaiements = Paiement::where('annee',date('Y'))->where('fournisseur',1)->get();
+        $fpaiements = $fpaiements->groupBy(function($item){
+            return $item->mois->name;
+        });
+
         //dd($paiements);
 
         $data['paiements']=$paiements;
-
         $data['depenses']=$depenses;
+        $data['fpaiements']=$fpaiements;
 
         return view('Admin/dashboard')->with(compact('data'));
     }
