@@ -44,7 +44,7 @@
                                 <td>{{ $article->category?$article->category->name:'-' }}</td>
                                 <td>{{ number_format($article->pv,0,',','.') }}</td>
                                 <td>{{ number_format($article->quantite,0,',','.') }}</td>
-                                <td></td>
+                                <td><a class="btn btn-info btn-xs btn-edit" data-id="{{ $article->id }}" data-target="#valModal" data-toggle="modal" href="">Actualiser</a></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -89,7 +89,7 @@
                   </div>
                   <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                       <input type="number" name="quantite" placeholder="Quantite initiale" class="form-control" id="">
+                       <input type="number" name="quantite" required placeholder="Quantite initiale" class="form-control" id="">
                     </div>
                 </div>
                 </div>
@@ -104,4 +104,45 @@
     </div>
     <!-- /.modal-dialog -->
   </div>
+
+  <div class="modal fade" id="valModal">
+    <div class="modal-dialog moda-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">NOUVELLE QUANTITE</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+            <form action="/admin/parametres/article/actu" method="post">
+                @csrf
+                <input type="hidden" name="article_id" id="article_id">
+                <div class="row">
+
+                  <div class="col-md-12 col-sm-12">
+                    <div class="form-group">
+                       <input type="number" name="quantite" required placeholder="Quantite" class="form-control" id="">
+                    </div>
+                </div>
+                </div>
+                  <div>
+                      <button type="submit" class="btn btn-sm btn-success" id="btn-save">Enregistrer</button>
+                  </div>
+            </form>
+        </div>
+      </div>
+
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+  <script>
+    $('.btn-edit').click(function(){
+        var id = $(this).data('id');
+        $('#article_id').val(id);
+    });
+  </script>
 @endsection

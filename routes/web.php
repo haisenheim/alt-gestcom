@@ -66,6 +66,7 @@ Route::prefix('admin')
     ->group(function(){
         Route::get('/dashboard','DashboardController');
         Route::resource('/clients', 'ClientController');
+        Route::post('/parametres/article/actu','ArticleController@actualiser');
         Route::resource('/fournisseurs', 'FournisseurController');
         Route::resource('/stocks', 'StockController');
 

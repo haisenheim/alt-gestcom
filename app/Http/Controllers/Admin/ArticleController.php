@@ -59,6 +59,15 @@ class ArticleController extends Controller
         return back();
     }
 
+    public function actualiser(Request $request){
+       // dd($request->all());
+       $article = Article::find($request->article_id);
+       $article->quantite = $request->quantite;
+       $article->save();
+       // Article::updateOrCreate(['id'=>$request->article_Id],['quantite'=>$request->quantite]);
+        return back();
+    }
+
     /**
      * Display the specified resource.
      *

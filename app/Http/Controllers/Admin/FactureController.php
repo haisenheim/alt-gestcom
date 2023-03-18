@@ -123,6 +123,9 @@ class FactureController extends ExtendedController
                 'pu'=>$lignes[$i]['pu'],
                 'quantite'=>$lignes[$i]['qty'],
             ]);
+            $article = Article::find($lignes[$i]['id']);
+            $article->quantite = $article->quantite - $lignes[$i]['qty'];
+            $article->save();
         }
 
         return response()->json($facture->id);
