@@ -7,70 +7,77 @@
   <div class="container p-3">
         <h4>TABLEAU DE BORD</h4>
         <div class="row">
-            <div class="col-md-3 col-sm-12">
-                <div class="card">
+            <div class="col-md-6">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        <h3 class="card-title">ETAT DES PAIEMENTS CLIENTS</h3>
+                    </div>
                     <div class="card-body">
-                        <p><span class="text-bold">Factures mensuelles</span></p>
-                        <p>
-                            <span style="font-size: 0.75rem">Factures créées dans le mois</span>
-                        </p>
-                        <div class="m-3 float-lg-right">
-                            <span style="font-size: 1.5rem" class="text-bold">{{ isset($nbfm)?number_format($nbfm,0,',','.'):'-' }}</span>
-                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>MOIS</th>
+                                    <th>TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $s=0; ?>
+                                @foreach ($data['paiements'] as $k=>$v)
+                                    <?php $t= $v->reduce(function($carry,$item){
+                                        return $carry + $item->montant;
+                                    });
+
+                                    $s=$s+$t;
+
+                                    ?>
+                                    <tr>
+                                        <td>{{ $k }}</td>
+                                        <td>{{ number_format($t,0,',','.') }} XAF</td>
+                                    </tr>
+                                @endforeach
+                                <tr>
+                                    <th>TOTAL</th>
+                                    <th>{{ number_format($s,0,',','.') }} XAF</th>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <p><span class="text-bold">Chiffre d'affaires mensuel</span></p>
-                        <p>
-                            <span style="font-size: 0.75rem">Montant total des factures du mois en cours</span>
-                        </p>
-                        <div class="m-0 float-lg-right">
-                            <span style="font-size: 1.5rem" class="text-bold">{{ number_format($cam,0,',','.') }}</span>
-                        </div>
+            <div class="col-md-6">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        <h3 class="card-title">ETAT DES DEPENSES ANNUELLES</h3>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="card bg-gradient-green">
                     <div class="card-body">
-                        <p><span class="text-bold">Chiffre d'affaire annuel</span></p>
-                        <p>
-                            <span style="font-size: 0.75rem">-</span>
-                        </p>
-                        <div class="m-3 float-lg-right">
-                            <span style="font-size: 1.5rem" class="text-bold">{{ number_format($cay,0,',','.') }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <p><span class="text-bold">Recouvrements mensuelles</span></p>
-                        <p>
-                            <span style="font-size: 0.75rem">Total des sommes recoltees dans le mois</span>
-                        </p>
-                        <div class="m-3 float-lg-right">
-                            <span style="font-size: 1.5rem" class="text-bold">{{ number_format($rcm,0,',','.') }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <p><span class="text-bold">Recouvrements annuelles</span></p>
-                        <p>
-                            <span style="font-size: 0.75rem">Total des sommes recoltees dans l'annee</span>
-                        </p>
-                        <div class="m-3 float-lg-right">
-                            <span style="font-size: 1.5rem" class="text-bold">{{ number_format($rcy,0,',','.') }}</span>
-                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>MOIS</th>
+                                    <th>TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $s=0; ?>
+                                @foreach ($data['depenses'] as $k=>$v)
+                                    <?php $t= $v->reduce(function($carry,$item){
+                                        return $carry + $item->montant;
+                                    });
+
+                                    $s=$s+$t;
+
+                                    ?>
+                                    <tr>
+                                        <td>{{ $k }}</td>
+                                        <td>{{ number_format($t,0,',','.') }} XAF</td>
+                                    </tr>
+                                @endforeach
+                                <tr>
+                                    <th>TOTAL</th>
+                                    <th>{{ number_format($s,0,',','.') }} XAF</th>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -83,7 +90,7 @@
     div.card-section-2{
         height:150px;
     }
-    div.card{
+    div.card_{
             height: 175px;
         }
   </style>

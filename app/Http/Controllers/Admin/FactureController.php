@@ -99,7 +99,6 @@ class FactureController extends ExtendedController
             'moi_id'=>date('m'),
             'annee'=>date('Y'),
         ]);
-
         return back();
     }
 

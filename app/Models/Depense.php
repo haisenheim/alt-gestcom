@@ -14,5 +14,9 @@ class Depense extends Model
         return $this->belongsTo('App\Models\Tdepense','deptype_id');
     }
 
+    public function mois(){
+        return $this->belongsTo('App\Models\Moi','moi_id');
+    }
+
 
 }

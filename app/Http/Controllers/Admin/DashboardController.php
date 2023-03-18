@@ -3,13 +3,37 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Depense;
 use App\Models\Facture;
 use App\Models\Paiement;
 
 class DashboardController extends Controller
 {
 
-	public function __invoke()
+    public function __invoke(){
+
+        $data = [];
+
+        $paiements = Paiement::where('annee',date('Y'))->get();
+        $paiements = $paiements->groupBy(function($item){
+            return $item->mois->name;
+        });
+
+        $depenses = Depense::where('annee',date('Y'))->get();
+        $depenses = $depenses->groupBy(function($item){
+            return $item->mois->name;
+        });
+
+        //dd($paiements);
+
+        $data['paiements']=$paiements;
+
+        $data['depenses']=$depenses;
+
+        return view('Admin/dashboard')->with(compact('data'));
+    }
+
+	public function __invoke__()
 	{
         $factures = Facture::where('annee',date('Y'))->get();
         $nbfy = $factures->count();

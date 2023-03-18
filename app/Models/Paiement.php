@@ -14,6 +14,10 @@ class Paiement extends Model
         return $this->belongsTo('App\Models\Facture');
     }
 
+    public function mois(){
+        return $this->belongsTo('App\Models\Moi','moi_id');
+    }
+
 
 
     public function mode(){
