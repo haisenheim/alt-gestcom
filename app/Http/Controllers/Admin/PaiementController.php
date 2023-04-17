@@ -43,7 +43,7 @@ class PaiementController extends ExtendedController
             if(request()->client_id){
                 //dd($paiements);
                 $paiements = $paiements->where('client_id',request()->client_id);
-                dd($paiements);
+                //dd($paiements);
                 $client = Client::find(request()->client_id);
                 return view('/Admin/Paiements/show_block')->with(compact('client','paiements'));
             }
