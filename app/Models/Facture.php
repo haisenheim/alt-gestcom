@@ -18,6 +18,10 @@ class Facture extends Model
         return $this->belongsTo('App\Models\Delai');
     }
 
+    public function mois(){
+        return $this->belongsTo('App\Models\Moi','moi_id');
+    }
+
     public function paiements()
     {
         return $this->hasMany('App\Models\Paiement');

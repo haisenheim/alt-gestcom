@@ -153,7 +153,7 @@ class FactureController extends ExtendedController
 
        // dd(request()->all());
         if($du && $au){
-            $factures = Facture::whereBetween('created_at',[$du,$au])->get();
+            $factures = Facture::whereBetween('created_at',[$du,$au])->where('statut',1)->get();
             if(request()->client_id){
                 $factures = $factures->where('client_id',request()->client_id);
             }

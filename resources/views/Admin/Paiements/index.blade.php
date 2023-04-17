@@ -5,6 +5,43 @@
   <div class="">
         <h3>JOURNAL DES ENTREES</h3>
         <div class="card card-light">
+            <div class="card-header">
+                <div>
+                    <form action="/admin/paiement/block" method="post">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="">DU</label>
+                                    <input type="date" name="du" required class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="">AU</label>
+                                    <input type="date" name="au" required class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="">CLIENT</label>
+                                    <select name="client_id" id="" class="form-control">
+                                        <option value="">Client ...</option>
+                                        @foreach ($clients as $cl)
+                                            <option value="{{ $cl->id }}">{{ $cl->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mt-4">
+                                <div style="padding-top:10px" class="form-group">
+                                    <button type="submit" title="Search" class="btn btn-success btn-sm"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="card-body">
                 <table class="table table-bordered table-sm table-hover data-table">
                     <thead>
