@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Depense;
 use App\Models\Facture;
 use App\Models\Paiement;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -21,12 +22,15 @@ class DashboardController extends Controller
         $depenses = $depenses->groupBy(function($item){
             return $item->mois->name;
         });
-
-        $factures = Facture::where('annee',date('Y'))->where('fournisseur',0)->where('statut',1)->get();
+        $now = Carbon::now();
+        $fd = $now->firstOfYear();
+        //dd($fd);
+        $factures = Facture::where('created_at','>=',$fd)->where('fournisseur',0)->where('statut',1)->get();
         $ids = [];
         foreach($factures as $facture){
             $ids[] = $facture->id;
         }
+
         $factures = $factures->groupBy(function($item){
             return $item->mois->name;
         });
