@@ -18,11 +18,17 @@ class DashboardController extends Controller
         $ps = Paiement::all();
         foreach($ps as $p){
             if($p->facture){
-                $p->fournisseur = $p->facture->fournisseur;
+                if($p->facture->client){
+                    $p->facture->fournisseur = $p->facture->client->fournisseur;
+                    $p->facture->save();
+                    $p->fournisseur = $p->facture->client->fournisseur;
+                    $p->save();
+                }
+
             }
         }
 
-        //dd();
+        dd();
 
         //$paiements = Paiement::where('annee',date('Y'))->where('fournisseur',0)->get();
 
