@@ -55,10 +55,13 @@ class FactureController extends ExtendedController
     }
 
     public function addPaiement(Request $request){
+        $facture = Facture::find($request->facture_id);
         Paiement::create([
             'facture_id'=>$request->facture_id,
             'montant'=>$request->montant,
             'user_id'=>auth()->user()->id,
+            'client_id'=>$facture->client_id,
+            'fournisseur'=>$facture->fournisseur,
         ]);
 
         return back();
@@ -197,6 +200,7 @@ class FactureController extends ExtendedController
     {
         //
         $lignes = $request->lignes;
+        $client = Client::find($request->client_id);
         $facture = Facture::create([
             'client_id'=>$request->client_id?$request->client_id:0,
             'reference'=>'CHTV'.date('sihd/my'),
@@ -206,6 +210,7 @@ class FactureController extends ExtendedController
             'statut'=>1,
             'user_id'=>auth()->user()->id,
             'client_name'=>$request->name,
+            'fournisseur'=>$client?$client->fournisseur:0,
         ]);
         for($i=0;$i<count($lignes);$i++){
             $ligne = LigneFacture::create([
@@ -243,6 +248,7 @@ class FactureController extends ExtendedController
             'statut'=>0,
             'user_id'=>auth()->user()->id,
             'client_name'=>$request->name,
+
         ]);
         for($i=0;$i<count($lignes);$i++){
             $ligne = LigneFacture::create([
