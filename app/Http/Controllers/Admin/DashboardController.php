@@ -15,7 +15,7 @@ class DashboardController extends Controller
 
         $data = [];
 
-        $ps = Paiement::all();
+       /* $ps = Paiement::all();
         foreach($ps as $p){
             if($p->facture){
                 if($p->facture->client){
@@ -26,9 +26,9 @@ class DashboardController extends Controller
                 }
 
             }
-        }
+        } */
 
-        dd();
+        //dd();
 
         //$paiements = Paiement::where('annee',date('Y'))->where('fournisseur',0)->get();
 
