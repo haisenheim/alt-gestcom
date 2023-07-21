@@ -22,7 +22,7 @@ class DashboardController extends Controller
             }
         }
 
-        dd();
+        //dd();
 
         //$paiements = Paiement::where('annee',date('Y'))->where('fournisseur',0)->get();
 
