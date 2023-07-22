@@ -98,7 +98,7 @@ class DashboardController extends Controller
         $mvts = [];
 
         foreach($mois as $m){
-            $mvts[$m]['entree'] = isset($paiements[$m])?$paiements[$m]->reduce(function($carry,$item){
+            $mvts[$m]['entree'] = isset($all_paiements[$m])?$all_paiements[$m]->reduce(function($carry,$item){
                 return $carry + $item->montant;
             }):0;
             $mvts[$m]['sortie'] = 0;

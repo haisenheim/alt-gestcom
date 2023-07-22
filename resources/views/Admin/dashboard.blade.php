@@ -284,9 +284,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $s=0; ?>
+                                <?php $se=0; $ss=0; $sm=0; ?>
                                 @foreach ($mvts as $k=>$v)
-
+                                    <?php
+                                        $se = $se +$v['entree'];
+                                        $ss = $ss +$v['sortie'];
+                                        $se = $sm +$v['marge'];
+                                    ?>
                                     <tr>
                                         <td>{{ $k }}</td>
                                         <td>{{ number_format($v['entree'],0,',','.') }} XAF</td>
@@ -296,7 +300,9 @@
                                 @endforeach
                                 <tr>
                                     <th>TOTAL</th>
-                                    <th>{{ number_format($s,0,',','.') }} XAF</th>
+                                    <th>{{ number_format($se,0,',','.') }} XAF</th>
+                                    <th>{{ number_format($ss,0,',','.') }} XAF</th>
+                                    <th>{{ number_format($sm,0,',','.') }} XAF</th>
                                 </tr>
                             </tbody>
                         </table>
