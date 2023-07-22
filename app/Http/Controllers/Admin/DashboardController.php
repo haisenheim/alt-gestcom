@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Commission;
 use App\Models\Depense;
 use App\Models\Facture;
 use App\Models\Paiement;
+use App\Models\Pcommission;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -55,19 +57,73 @@ class DashboardController extends Controller
             return $item->mois?$item->mois->name:'-';
         });
 
+        $all_paiements = Paiement::where('annee',date('Y'))->where('fournisseur',0)->where('moi_id','>',0)->get();
+
+        $all_paiements = $all_paiements->groupBy(function($item){
+            return $item->mois->name;
+        });
+
         $fpaiements = Paiement::where('annee',date('Y'))->where('fournisseur',1)->get();
         $fpaiements = $fpaiements->groupBy(function($item){
             return $item->mois->name;
         });
 
+
+        $commissions = Commission::where('annee',date('Y'))->get();
+        $cids = [];
+        foreach($commissions as $facture){
+            $cids[] = $facture->id;
+        }
+
+       // $pcommissions = Pcommission::whereIn('commission_id',$cids)->where('moi_id','>',0)->get();
+       $pcommissions = Commission::where('annee',date('Y'))->get();
+        $pcommissions = $pcommissions->groupBy(function($item){
+            return $item->mois->name;
+        });
+
+        $commissions = $commissions->groupBy(function($item){
+            return $item->mois->name;
+        });
+
         //dd($paiements);
+        $mois = ['JANVIER','FEVRIER','MARS','AVRIL','MAI','JUIN','JUILLET','AOUT','SEPTEMBRE','OCTOBRE','NOVEMBRE','DECEMBRE'];
 
         $data['paiements']=$paiements;
         $data['depenses']=$depenses;
         $data['fpaiements']=$fpaiements;
         $data['factures']=$factures;
+        $data['commissions']=$commissions;
+        $data['pcommissions']=$pcommissions;
+        $data['all_paiements'] = $all_paiements;
+        $mvts = [];
 
-        return view('Admin/dashboard')->with(compact('data'));
+        foreach($mois as $m){
+            $mvts[$m]['entree'] = isset($paiements[$m])?$paiements[$m]->reduce(function($carry,$item){
+                return $carry + $item->montant;
+            }):0;
+            $mvts[$m]['sortie'] = 0;
+            if(isset($fpaiements[$m])){
+               // dd($fpaiements[$m]);
+                $montant = $fpaiements[$m]->reduce(function($carry,$item){
+                    return $carry + $item->montant;
+                });
+                //dd($montant);
+                $mvts[$m]['sortie'] = $mvts[$m]['sortie'] + $montant;
+            }
+            if(isset($pcommissions[$m])){
+                $mvts[$m]['sortie'] = $mvts[$m]['sortie'] + $pcommissions[$m]->reduce(function($carry,$item){
+                    return $carry + $item->montant;
+                });
+            }
+            if(isset($depenses[$m])){
+                $mvts[$m]['sortie'] = $mvts[$m]['sortie'] + $depenses[$m]->reduce(function($carry,$item){
+                    return $carry + $item->montant;
+                });
+            }
+            $mvts[$m]['marge'] = $mvts[$m]['entree'] - $mvts[$m]['sortie'];
+        }
+
+        return view('Admin/dashboard')->with(compact('data','mvts'));
     }
 
 	public function __invoke__()

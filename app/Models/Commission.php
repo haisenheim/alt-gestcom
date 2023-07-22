@@ -31,6 +31,10 @@ class Commission extends Model
         return ($this->montant > $this->versement)?$this->montant - $this->versement:0;
     }
 
+    public function mois(){
+        return $this->belongsTo('App\Models\Moi','moi_id');
+    }
+
 
 
 }

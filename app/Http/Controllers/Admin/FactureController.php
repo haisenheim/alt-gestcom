@@ -69,11 +69,6 @@ class FactureController extends ExtendedController
 
 
 
-
-
-
-
-
     /**
      * Show the form for creating a new resource.
      *

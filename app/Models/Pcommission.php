@@ -21,4 +21,8 @@ class Pcommission extends Model
         return $this->belongsTo('App\Models\Commission','commission_id');
     }
 
+    public function mois(){
+        return $this->belongsTo('App\Models\Moi','moi_id');
+    }
+
 }
