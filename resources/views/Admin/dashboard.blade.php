@@ -287,9 +287,9 @@
                                 <?php $se=0; $ss=0; $sm=0; ?>
                                 @foreach ($mvts as $k=>$v)
                                     <?php
-                                        $se = $se +$v['entree'];
-                                        $ss = $ss +$v['sortie'];
-                                        $se = $sm +$v['marge'];
+                                        $se = $se + $v['entree'];
+                                        $ss = $ss + $v['sortie'];
+                                        $sm = $sm + $v['marge'];
                                     ?>
                                     <tr>
                                         <td>{{ $k }}</td>
