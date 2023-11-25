@@ -80,7 +80,8 @@ class PaiementController extends ExtendedController
             'montant'=>$request->montant,
             'reference'=>date('sihd-my'),
             'moi_id'=>date('m'),
-            'annee'=>date('Y')
+            'annee'=>date('Y'),
+            'fournisseur'=>$facture->fournisseur,
         ]);
         return back();
     }

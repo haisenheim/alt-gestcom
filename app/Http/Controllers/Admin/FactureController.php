@@ -62,6 +62,9 @@ class FactureController extends ExtendedController
             'user_id'=>auth()->user()->id,
             'client_id'=>$facture->client_id,
             'fournisseur'=>$facture->fournisseur,
+            'moi_id'=>date('m'),
+            'annee'=>date('Y'),
+            'reference'=>date('sihd-my'),
         ]);
 
         return back();
