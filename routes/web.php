@@ -54,11 +54,12 @@ Route::get('/correct',function(){
 
     foreach($paiements as $p){
         if($p->facture){
-            if($p->client_id != $p->facture->client_id){
+            if($p->fournisseur != $p->facture->fournisseur){
                 $data['m']=$data['m']+1;
-                $p->client_id = $p->facture->client_id;
+                $p->fournisseur = $p->facture->fournisseur;
                 $p->save();
             }
+
         }else{
             $p->delete();
             $data['d']=$data['d']+1;
