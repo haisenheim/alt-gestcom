@@ -12,6 +12,7 @@ use BeyondCode\Mailbox\Facades\Mailbox;
 use App\Models\MailboxInboundEmail;
 use App\Mail\TestEmail;
 use App\Models\Page;
+use App\Models\Paiement;
 use Illuminate\Support\Facades\Mail;
 
 /*
@@ -45,6 +46,27 @@ Route::get('/policy',function(){
 
 Route::get('/ip', function () {
 	dd(request());
+});
+
+Route::get('/correct',function(){
+    $paiements = Paiement::all();
+    $data = ['m'=>0,'d'=>0];
+
+    foreach($paiements as $p){
+        if($p->facture){
+            if($p->client_id != $p->facture->client_id){
+                $data['m']=$data['m']+1;
+                $p->client_id = $p->facture->client_id;
+                $p->save();
+            }
+        }else{
+            $p->delete();
+            $data['d']=$data['d']+1;
+        }
+
+    }
+
+    dd($data);
 });
 
 
