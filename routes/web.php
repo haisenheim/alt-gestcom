@@ -100,6 +100,8 @@ Route::prefix('admin')
         Route::post('/commerciale/payer','CommercialeController@payer');
         Route::resource('/parametres/tdepenses', 'TDepenseController');
 
+
+
         Route::resource('/parametres/articles', 'ArticleController');
         Route::get('/proformas/factures', 'FactureController@getProformas');
         Route::get('/frn/factures', 'FactureController@getFacturesFrn');
@@ -117,6 +119,7 @@ Route::prefix('admin')
         Route::get('/facture/print/{id}', 'FactureController@imprimer');
 
         Route::post('/paiement/block', 'PaiementController@showBlock');
+        Route::get('print/paiements/{du}/{au}/{client_id}','PaiementController@printLog');
         Route::get('/print/histo_factures/block', 'FactureController@printBlock');
         Route::post('/factures/save', 'FactureController@save');
         Route::post('/facture/payer','FactureController@addPaiement');

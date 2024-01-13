@@ -6,7 +6,9 @@ use App\Http\Controllers\ExtendedController;
 use App\Models\Client;
 use App\Models\Facture;
 use App\Models\Paiement;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PDF;
 
 class PaiementController extends ExtendedController
 {
@@ -45,11 +47,41 @@ class PaiementController extends ExtendedController
                 $paiements = $paiements->where('client_id',request()->client_id);
                 //dd($paiements);
                 $client = Client::find(request()->client_id);
-                return view('/Admin/Paiements/show_block')->with(compact('client','paiements'));
+                return view('/Admin/Paiements/show_block')->with(compact('client','paiements','du','au'));
             }
-           return view('/Admin/Paiements/show_block')->with(compact('paiements'));
+           return view('/Admin/Paiements/show_block')->with(compact('paiements','du','au'));
         }
         return back();
+
+    }
+
+    public function printLog($du,$au,$client_id){
+       // dd(request());
+       // $du = request()->du;
+        //$au = request()->au;
+
+       // dd(request()->all());
+        if($du && $au){
+            $paiements = Paiement::whereBetween('created_at',[$du,$au])->get();
+            //dd($paiements);
+            if($client_id){
+                //dd($paiements);
+                $paiements = $paiements->where('client_id',$client_id);
+                //dd($paiements);
+                $client = Client::find($client_id);
+                $pdf = PDF::loadView('Admin/Paiements/journal_pdf', [
+                    'paiements' => $paiements,'client'=>$client,'du'=>Carbon::parse($du),'au'=>Carbon::parse($au)
+                ]);
+
+               // return view('/Admin/Paiements/show_block')->with(compact('client','paiements'));
+            }
+            $pdf = PDF::loadView('Admin/Paiements/journal_pdf', [
+                'paiements' => $paiements,'du'=>Carbon::parse($du),'au'=>Carbon::parse($au)
+            ]);
+           //return view('/Admin/Paiements/show_block')->with(compact('paiements','du','au'));
+        }
+        //return redirect('/admin/paiements');
+        return $pdf->stream('liste_paiements.pdf');
 
     }
 

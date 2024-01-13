@@ -5,6 +5,11 @@
   <div class="">
         <h3>JOURNAL DES ENTREES</h3>
         <div class="card card-light">
+            <div class="card-header">
+                <div class="float-md-right">
+                    <a class="btn btn-sm btn-info" href="/admin/print/paiements/{{ $du }}/{{ $au }}/{{ isset($client)?$client->id:0 }}"><i class="fa fa-print"></i> Imprimer</a>
+                </div>
+            </div>
             <div class="card-body">
                 <table class="table table-bordered table-sm table-hover data-table">
                     <thead>
