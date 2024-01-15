@@ -88,6 +88,8 @@ Route::prefix('admin')
     ->name('admin.')
     ->group(function(){
         Route::get('/dashboard','DashboardController');
+        Route::get('/etats/global/form','EtatController@getGlobalForm');
+        Route::get('/etats/global/print','EtatController@getGlobalPrint');
         Route::resource('/clients', 'ClientController');
         Route::post('/parametres/article/actu','ArticleController@actualiser');
         Route::resource('/fournisseurs', 'FournisseurController');

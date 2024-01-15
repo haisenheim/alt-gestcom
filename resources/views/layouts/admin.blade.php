@@ -176,6 +176,24 @@
                 </li>
               </ul>
           </li>
+          <li class="nav-item {{ $active==8?'active':'' }}">
+            <a href="#" class="nav-link {{ $active==8?'active':'' }}">
+                <i class="nav-icon fas fa-file-excel"></i>
+                <p>
+                  ETATS
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/admin/etats/global/form" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>ETAT GLOBAL</p>
+                  </a>
+                </li>
+
+              </ul>
+          </li>
           <li class="nav-item">
             <a href="/logout" class="nav-link">
               <i class="nav-icon fas fa-arrow-left"></i>
