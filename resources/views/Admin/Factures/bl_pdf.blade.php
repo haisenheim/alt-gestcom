@@ -159,7 +159,7 @@
                     </table>
 
                 </div>
-                <div style="margin-top: 30px;  height:160px; width:400px; border:2px solid #000;">
+                <div style="margin-top: 30px;  height:120px; padding:10px; width:300px; border:1px solid #000;">
                     <h5 style="font-size:15px;">SIGNATURE DU CLIENT </h5>
                 </div>
 
