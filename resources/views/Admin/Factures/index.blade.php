@@ -49,6 +49,7 @@
                                             <option value="1">Impayees</option>
                                             <option value="2">Non soldees</option>
                                             <option value="3">Soldees</option>
+                                            <option value="4">Impayees et non soldees</option>
                                         </select>
                                     </div>
                                 </div>

@@ -40,7 +40,7 @@ class PaiementController extends ExtendedController
 
        // dd(request()->all());
         if($du && $au){
-            $paiements = Paiement::whereBetween('created_at',[$du,$au])->get();
+            $paiements = Paiement::whereBetween('created_at',[$du,$au])->where('fournisseur',0)->get();
             //dd($paiements);
             if(request()->client_id){
                 //dd($paiements);

@@ -159,9 +159,16 @@ class FactureController extends ExtendedController
                 $factures = $factures->where('client_id',request()->client_id);
             }
             if(request()->type_id){
-                $factures = $factures->filter(function($item){
-                    return $item->status['code'] == request()->type_id;
-                });
+                if(request()->type_id<4){
+                    $factures = $factures->filter(function($item){
+                        return $item->status['code'] == request()->type_id;
+                    });
+                }
+                if(request()->type_id == 4){
+                    $factures = $factures->filter(function($item){
+                        return $item->status['code'] == 1 || $item->status['code'] == 2;
+                    });
+                }
             }
             $client = Client::find(request()->client_id);
            // dd($factures);
