@@ -77,7 +77,7 @@
             <!-- Main content -->
             <div  class="p-3 mb-3">
               <!-- info row -->
-              <h2 style="margin: 0; font-size:22px;">BON DE LIVRAISON N<sup>o</sup> {{ $facture->id }}{{ date_format($facture->created_at,'dmyh') }}</h2>
+              <h2 style="margin: 0; font-size:22px; text-align:center; margin-bottom: 20px;">BON DE LIVRAISON N<sup>o</sup> {{ $facture->id }}{{ date_format($facture->created_at,'dmyh') }}</h2>
               <h5 style="margin: 0; font-size:16px;">FACTURE N<sup>o</sup> {{ $facture->reference }}</h5>
               <!-- info row -->
               <div style="height: 120px;" class="mt-2">
@@ -104,9 +104,6 @@
                 <!-- /.col -->
                 <div style="float: left; font-size: 11px; font-weight: 600; width: 40%; text-align: right" class="col-sm-6 invoice-col">
                     <span style="float:left;">DATE DE CREATION : {{ date_format($facture->created_at,'d/m/Y') }}</span>
-                    <div class="mt-3">
-                        <p style="float:left; font-size: 11px;font-weight: 600;">DELAI DE PAIEMENT : {{ $facture->delai?$facture->delai->name .' jours':'Paiement immediat' }}</p>
-                    </div>
                   </div>
                   <!-- /.col -->
 
@@ -162,8 +159,8 @@
                     </table>
 
                 </div>
-                <div style="margin-top: 30px; height:160px; width:400px; border:#555 2px;">
-                    <h5>SIGNATURE DU CLIENT </h5>
+                <div style="margin-top: 30px;  height:160px; width:400px; border:2px solid #000;">
+                    <h5 style="font-size:15px;">SIGNATURE DU CLIENT </h5>
                 </div>
 
               </div>

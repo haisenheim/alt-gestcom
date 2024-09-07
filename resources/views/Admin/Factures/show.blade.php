@@ -28,7 +28,7 @@
                             </div>
                             @if($facture->statut)
                             <div>
-                                <a class="btn btn-xs btn-primary" href="/admin/facture/bl/{{ $facture->id }}">BL</a>
+                                <a class="btn btn-xs btn-primary" href="/admin/factures/bl/{{ $facture->id }}">BL</a>
                             </div>
                             @endif
                         </div>
