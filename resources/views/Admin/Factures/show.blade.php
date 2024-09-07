@@ -43,7 +43,7 @@
               <!-- info row -->
               <div class="row invoice-info">
                 @if($facture->bc)
-                    <strong>BON DE COMMANDE : <span>{{ $facture->bc }}</span></strong> <br>
+                    <p><strong>BON DE COMMANDE : <span>{{ $facture->bc }}</span></strong></p>
                 @endif
                 @if ($facture->client)
                 <div class="col-sm-4 invoice-col">
