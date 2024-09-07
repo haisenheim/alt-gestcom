@@ -41,10 +41,10 @@
               </div>
               <hr/>
               <!-- info row -->
-              <div class="row invoice-info">
-                @if($facture->bc)
+              @if($facture->bc)
                     <p><strong>BON DE COMMANDE : <span>{{ $facture->bc }}</span></strong></p>
                 @endif
+              <div class="row invoice-info">
                 @if ($facture->client)
                 <div class="col-sm-4 invoice-col">
                     CLIENT:
