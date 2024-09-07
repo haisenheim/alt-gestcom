@@ -12,7 +12,7 @@
               <!-- title row -->
               <div class="row">
                 <div class="col-12">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between gap-1">
                         <div class="d-flex justify-content-start">
                             <div>
                                 <span class="">
@@ -26,6 +26,11 @@
                             <div>
                                 <a data-toggle="modal" data-target="#bcModal" class="btn btn-xs btn-warning" href="#">BC</a>
                             </div>
+                            @if($facture->statut)
+                            <div>
+                                <a class="btn btn-xs btn-primary" href="/admin/facture/bl/{{ $facture->id }}">BL</a>
+                            </div>
+                            @endif
                         </div>
                         <div>
                             <small class="float-right">Date: {{ date_format($facture->created_at,'d/m/Y') }}</small>
@@ -37,6 +42,9 @@
               <hr/>
               <!-- info row -->
               <div class="row invoice-info">
+                @if($facture->bc)
+                    <strong>BON DE COMMANDE : <span>{{ $facture->bc }}</span></strong>
+                @endif
                 @if ($facture->client)
                 <div class="col-sm-4 invoice-col">
                     CLIENT:
@@ -174,13 +182,13 @@
             <div class="modal-body">
                 @csrf
                 <input type="hidden" name="id" value="{{ $facture->id }}">
-              <div class="row">
-                  <div class="col-md-9 col-sm-12">
-                      <div class="form-group">
+              <div class="">
+                  <div class="d-flex gap-2">
+                      <div class="">
                           <input type="text" name="bc" placeholder="Numero du bon de commande" class="form-control">
                       </div>
-                      <div class="col-md-3 col-sm-12">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Imputer</button>
+                      <div class="">
+                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Imputer</button>
                       </div>
                   </div>
 

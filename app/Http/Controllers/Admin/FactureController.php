@@ -155,6 +155,20 @@ class FactureController extends ExtendedController
         return $pdf->stream('sample.pdf');
     }
 
+    public function printBl($id){
+        $facture = Facture::find($id);
+        if($facture->statut){
+            $pdf = PDF::loadView('Admin/Factures/bl_pdf', [
+                'facture' => $facture
+            ]);
+        }else{
+            return back();
+        }
+
+
+        return $pdf->stream('sample.pdf');
+    }
+
     public function printBlock(){
         $du = request()->du;
         $au = request()->au;
