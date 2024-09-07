@@ -70,6 +70,13 @@ class FactureController extends ExtendedController
         return back();
     }
 
+    public function addBc(){
+        $facture = Facture::find(request()->id);
+        $facture->bc = request()->bc;
+        $facture->save();
+        return back();
+    }
+
 
 
     /**

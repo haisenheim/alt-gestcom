@@ -12,16 +12,25 @@
               <!-- title row -->
               <div class="row">
                 <div class="col-12">
-                  <h4>
-                    <span class="float-left">
-                       @if($facture->with_tva)
-                       <a href="/admin/facture/tva/disable/{{ $facture->id }}" class="btn btn-xs btn-danger">Enlever TVA</a>
-                       @else
-                       <a href="/admin/facture/tva/enable/{{ $facture->id }}" class="btn btn-xs btn-info">Appliquer TVA</a>
-                       @endif
-                    </span>
-                    <small class="float-right">Date: {{ date_format($facture->created_at,'d/m/Y') }}</small>
-                  </h4>
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-start">
+                            <div>
+                                <span class="">
+                                    @if($facture->with_tva)
+                                    <a href="/admin/facture/tva/disable/{{ $facture->id }}" class="btn btn-xs btn-danger">Enlever TVA</a>
+                                    @else
+                                    <a href="/admin/facture/tva/enable/{{ $facture->id }}" class="btn btn-xs btn-info">Appliquer TVA</a>
+                                    @endif
+                                </span>
+                            </div>
+                            <div>
+                                <a data-toggle="modal" data-target="#bcModal" class="btn btn-xs btn-warning" href="#">BC</a>
+                            </div>
+                        </div>
+                        <div>
+                            <small class="float-right">Date: {{ date_format($facture->created_at,'d/m/Y') }}</small>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.col -->
               </div>
@@ -150,6 +159,38 @@
             </div>
         </div>
     </div>
+    </div>
+
+    <div class="modal fade" id="bcModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">IMPUTER UN BC</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form  method="POST" action="/admin/factures/bc">
+            <div class="modal-body">
+                @csrf
+                <input type="hidden" name="id" value="{{ $facture->id }}">
+              <div class="row">
+                  <div class="col-md-9 col-sm-12">
+                      <div class="form-group">
+                          <input type="text" name="bc" placeholder="Numero du bon de commande" class="form-control">
+                      </div>
+                      <div class="col-md-3 col-sm-12">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Imputer</button>
+                      </div>
+                  </div>
+
+              </div>
+            </div>
+            </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
 
     <div class="modal fade" id="payerModal">

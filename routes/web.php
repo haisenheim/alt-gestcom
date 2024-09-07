@@ -126,6 +126,7 @@ Route::prefix('admin')
         Route::post('/factures/save', 'FactureController@save');
         Route::post('/facture/payer','FactureController@addPaiement');
         Route::post('/factures/commission', 'FactureController@addCommission');
+        Route::post('/factures/bc', 'FactureController@addBc');
     });
 
 
