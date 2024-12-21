@@ -78,6 +78,9 @@
             <div  class="p-3 mb-3">
               <!-- info row -->
               <h5 style="margin: 0; font-size:16px;">FACTURE N<sup>o</sup> {{ $facture->reference }}</h5>
+              @if($facture->bc)
+                    <h6>BON DE COMMANDE : <span>{{ $facture->bc }}</span></h6>
+                @endif
               <!-- info row -->
               <div style="height: 120px;" class="mt-2">
 
