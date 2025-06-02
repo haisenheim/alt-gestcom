@@ -63,6 +63,7 @@ class ArticleController extends Controller
        // dd($request->all());
        $article = Article::find($request->article_id);
        $article->quantite = $request->quantite;
+       $article->name = $request->name;
        $article->save();
        // Article::updateOrCreate(['id'=>$request->article_Id],['quantite'=>$request->quantite]);
         return back();

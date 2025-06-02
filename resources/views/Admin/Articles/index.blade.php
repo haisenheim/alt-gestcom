@@ -44,7 +44,7 @@
                                 <td>{{ $article->category?$article->category->name:'-' }}</td>
                                 <td>{{ number_format($article->pv,0,',','.') }}</td>
                                 <td>{{ number_format($article->quantite,0,',','.') }}</td>
-                                <td><a class="btn btn-info btn-xs btn-edit" data-id="{{ $article->id }}" data-target="#valModal" data-toggle="modal" href="">Actualiser</a></td>
+                                <td><a class="btn btn-info btn-xs btn-edit" data-id="{{ $article->id }}" data-qty="{{ $article->quantite }}" data-name="{{ $article->name }}"   data-target="#valModal" data-toggle="modal" href="">Editer</a></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -109,7 +109,7 @@
     <div class="modal-dialog moda-sm">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">NOUVELLE QUANTITE</h4>
+          <h4 class="modal-title">Editer l'article</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -120,12 +120,19 @@
                 @csrf
                 <input type="hidden" name="article_id" id="article_id">
                 <div class="row">
-
-                  <div class="col-md-12 col-sm-12">
-                    <div class="form-group">
-                       <input type="number" name="quantite" required placeholder="Quantite" class="form-control" id="">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="">NOM</label>
+                            <input type="number" name="name" required placeholder="Nom de l'article" class="form-control" id="name">
+                        </div>
                     </div>
-                </div>
+
+                    <div class="col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="">QUANTITE</label>
+                            <input type="number" name="quantite" required placeholder="Quantite" class="form-control" id="quantite">
+                        </div>
+                    </div>
                 </div>
                   <div>
                       <button type="submit" class="btn btn-sm btn-success" id="btn-save">Enregistrer</button>
@@ -142,7 +149,11 @@
   <script>
     $('.btn-edit').click(function(){
         var id = $(this).data('id');
+        var name = $(this).data('name');
+        var qty = $(this).data('qty');
         $('#article_id').val(id);
+        $('#name').val(name);
+        $('#quantite').val(qty);
     });
   </script>
 @endsection
