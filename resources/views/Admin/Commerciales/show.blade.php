@@ -91,7 +91,11 @@
                                           <tr>
                                               <td>{{ date_format($paiement->created_at,'d/m/Y H:i') }}</td>
                                               <td>{{ number_format($paiement->montant,0,',','.') }}</td>
+                                              @if($paiement->facture)
                                               <td><a href="/admin/factures/{{ $paiement->facture_id }}">{{ $paiement->facture->reference }}</a></td>
+                                              @else
+                                              <td>-</td>
+                                              @endif
                                           </tr>
                                       @endforeach
                                   </tbody>
