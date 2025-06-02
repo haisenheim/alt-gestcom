@@ -44,7 +44,7 @@
                                 <td>{{ $article->category?$article->category->name:'-' }}</td>
                                 <td>{{ number_format($article->pv,0,',','.') }}</td>
                                 <td>{{ number_format($article->quantite,0,',','.') }}</td>
-                                <td><a class="btn btn-info btn-xs btn-edit" data-id="{{ $article->id }}" data-qty="{{ $article->quantite }}" data-nm="{{ $article->name }}"   data-target="#valModal" data-toggle="modal" href="">Modifier</a></td>
+                                <td><a class="btn btn-info btn-xs btn-edit" data-id="{{ $article->id }}" data-qty="{{ $article->quantite }}" data-nm="{{ $article->name }}"  data-target="#valModal" data-toggle="modal" href="">Modifier</a></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -123,7 +123,7 @@
                     <div class="col-md-12 col-sm-12">
                         <div class="form-group">
                             <label for="">NOM</label>
-                            <input type="number" name="name" required placeholder="Nom de l'article" class="form-control" id="nm">
+                            <input type="text" name="name" required placeholder="Nom de l'article" class="form-control" id="nom" >
                         </div>
                     </div>
 
@@ -152,8 +152,9 @@
         var name = $(this).data('nm');
         var qty = $(this).data('qty');
         $('#article_id').val(id);
-        $('#nm').val(name);
+        $('#nom').val(name);
         $('#quantite').val(qty);
+        //console.log(name);
     });
   </script>
 @endsection
